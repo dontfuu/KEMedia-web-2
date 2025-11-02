@@ -1,38 +1,35 @@
 import "./globals.css";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "KẾ Media – Quay chụp & Video Ads 3 ngày",
-  description:
-    "Portfolio + gói dịch vụ quay chụp sản phẩm, video bán hàng & video chạy quảng cáo – giao trong 3 ngày.",
-  metadataBase: new URL("https://ke-media-web-l1re.vercel.app"),
-  openGraph: {
-    title: "KẾ Media – Portfolio & Service Packages",
-    description:
-      "Quay chụp & Video Ads – 3 Day Sprint. Tối ưu TikTok/Meta Ads & Social.",
-    url: "https://ke-media-web-l1re.vercel.app",
-    siteName: "KẾ Media",
-    images: ["/og.jpg"],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "KẾ Media",
-    description:
-      "Quay chụp & Video Ads – 3 Day Sprint. Tối ưu TikTok/Meta Ads & Social.",
-    images: ["/og.jpg"],
-  },
+export const metadata: Metadata = {
+  title: "KẾ Media",
+  description: "One-page portfolio & service packages",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="vi">
-      <body className={`${inter.className} min-h-screen bg-gray-50 text-gray-900 antialiased`}>
-        {children}
-        <Analytics />
+    <html lang="vi" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );
